@@ -1,4 +1,7 @@
 //import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/providers/AllFlight.dart';
 import 'package:flutter_application_1/providers/rampa_provider.dart';
@@ -33,20 +36,18 @@ class _HomeState extends State<Home> {
     //print('object ${allStairs.myStairs.length}');
 
     return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("**Titutlo va aqui")),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blueGrey.shade400,
+      ),
       body: Container(
         decoration: const BoxDecoration(backgroundBlendMode: BlendMode.colorBurn, color: Colors.white12),
         child: Column(
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  "Home Page Title",
-                  style: TextStyle(fontSize: 26),
-                ),
-              ),
               Container(
-                color: Colors.blueGrey.shade400,
+                color: Colors.black38,
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
@@ -74,65 +75,86 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: [
                     Expanded(
-                        child: Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(10.0),
-                            itemCount: allFlights.flights.length,
-                            itemBuilder: ((context, index) {
-                              Map flight = flights[llaves[index]];
-                              return Card(
-                                color: Colors.brown.shade100,
-                                child: ListTile(
-                                  leading: Text('Flight ${flight["id"]}'),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TextButton.icon(
-                                          onPressed: (() {
-                                            int _id = flights[llaves.last]['id'] + 1;
-                                            Map currentFlight = flights[llaves[index]];
-                                            //currentFlight['id'] = _id;
-                                            currentFlight.forEach((key, value) {
-                                              usrInput.updateFields(key, value);
-                                            });
-                                            usrInput.updateFields('id', _id);
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: ((context) => Escalera(
-                                                          flightNumber: _id,
-                                                        ))));
-                                          }),
-                                          icon: const Icon(Icons.copy),
-                                          label: const Text('Copy')),
-                                      TextButton.icon(
-                                          onPressed: (() {
-                                            flight.forEach((key, value) {
-                                              usrInput.updateFields(key, value);
-                                            });
+                        child: Container(
+                      margin: EdgeInsets.all(15),
+                      decoration: BoxDecoration(border: Border.all(width: 2.0, color: Colors.black), borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(10.0),
+                              itemCount: allFlights.flights.length,
+                              itemBuilder: ((context, index) {
+                                Map flight = flights[llaves[index]];
+                                return Card(
+                                  color: Colors.brown.shade100,
+                                  child: ListTile(
+                                    leading: Text('Flight ${flight["id"]}'),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextButton.icon(
+                                            onPressed: (() {
+                                              int _id = flights[llaves.last]['id'] + 1;
+                                              Map currentFlight = flights[llaves[index]];
+                                              //currentFlight['id'] = _id;
+                                              currentFlight.forEach((key, value) {
+                                                usrInput.updateFields(key, value);
+                                              });
+                                              usrInput.updateFields('id', _id);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: ((context) => Escalera(
+                                                            flightNumber: _id,
+                                                          ))));
+                                            }),
+                                            icon: const Icon(Icons.copy),
+                                            label: const Text('Copy')),
+                                        TextButton.icon(
+                                            onPressed: (() {
+                                              flight.forEach((key, value) {
+                                                usrInput.updateFields(key, value);
+                                              });
 
-                                            Navigator.push(context, MaterialPageRoute(builder: ((context) => Escalera(flightNumber: llaves[index]))));
-                                          }),
-                                          icon: Icon(Icons.edit),
-                                          label: const Text('Edit')),
-                                      TextButton.icon(
-                                          onPressed: (() {
-                                            //Map flight = flights[llaves[index]];
-                                            allFlights.removeFlight(llaves[index]);
-                                          }),
-                                          icon: Icon(Icons.delete),
-                                          label: const Text('Delete')),
-                                    ],
+                                              Navigator.push(context, MaterialPageRoute(builder: ((context) => Escalera(flightNumber: llaves[index]))));
+                                            }),
+                                            icon: const Icon(Icons.edit),
+                                            label: const Text('Edit')),
+                                        TextButton.icon(
+                                            onPressed: (() {
+                                              //Map flight = flights[llaves[index]];
+                                              allFlights.removeFlight(llaves[index]);
+                                            }),
+                                            icon: const Icon(Icons.delete),
+                                            label: const Text('Delete')),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                           ),
-                        ),
-                        Expanded(child: Container())
-                      ],
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          ElevatedButton(
+                            child: const Text(' Submit '),
+                            onPressed: () {
+                              //FirebaseFirestore.instance.collection('fligtsdata').add({'riser': 88935});
+                              var dataJson = allFlights.misF();
+
+                              FirebaseFirestore.instance.collection('fligtsdata').add({'escalera': dataJson});
+                              //print(jsonEncode(allFlights.misF()));
+                              //print(dataToJson);
+                              allFlights.clearFlights();
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                        ],
+                      ),
                     )),
                     Expanded(child: Column())
                   ],

@@ -513,7 +513,7 @@ class _Dibujo extends CustomPainter {
 
         canvas.drawPath(dimension, nosingPen);
 
-        i += 3;
+        i += 6;
 
         Path dimentionLabelPath = Path();
         dimentionLabelPath.moveTo(pt[0], size.height - pt[1]);
@@ -528,27 +528,24 @@ class _Dibujo extends CustomPainter {
             value: rpt.balusterDistance.toString(),
             size: size,
             canvas: canvas,
-            offset: Offset(pt[0], size.height - pt[1] - 20),
+            offset: Offset(pt[0] + factor, size.height - pt[1] - 4 * factor),
             fontSise: 10,
             color: Colors.black54);
 
-        //nosing dimension label
-        dimensionLabel(
-            value: "0", //rpt.nosingDistance.toString(),
-            size: size,
-            offset: Offset((pt[0] + baluster) / 2, 0),
-            angle: 20,
-            // offset: Offset((pt[0] + 12 * (bevel / 11)) + 45, size.height - 10 - pt[1] + 12 * bevel / 6),
-            canvas: canvas,
-            pen: postPen);
+        double dx2 = pt[0] - i * (bevel / 11);
+        double dy2 = 10 + size.height - pt[1] - i * bevel / 6;
+
+        double dx1 = firstNose[0] - i * (bevel / 11);
+        double dy1 = 10 + firstNose[1] - i * bevel / 6;
 
         dimensionLabel(
-            value: "8",
+            value: rpt.nosingDistance.toString(),
             size: size,
-            offset: Offset(141.42, size.height - 200),
-            // offset: Offset((pt[0] + 12 * (bevel / 11)) + 45, size.height - 10 - pt[1] + 12 * bevel / 6),
+            offset: const Offset(0, 0),
+            dx: dx1 + ((dx1 - dx2).abs() / 2),
+            dy: dy1 - ((dy1 - dy2).abs() / 2),
             canvas: canvas,
-            angle: -10,
+            angle: 30,
             pen: postPen);
       }
     }
@@ -559,8 +556,6 @@ class _Dibujo extends CustomPainter {
         //if (stairStepsList.indexOf(step).isEven) {
 
         addLabel(
-            // x: step[0] - max(6 * factor, 30),
-            // y: step[1] - max(8 * factor, 20),
             x: step[0] - min(8 * factor, 40),
             y: step[1] - min(10 * factor, 40),
             label: "${nosingStepsList.indexOf(step) + 1}",
@@ -622,64 +617,6 @@ class _Dibujo extends CustomPainter {
         canvas.drawPath(rfPath, postPen);
       }
     }
-
-    //Ramp post
-    // if (rampPost.isNotEmpty) {
-    //   for (RampPost post in rampPost) {
-    //     // var x = post[0][0];
-    //     // var y = post[0][1];
-    //     // print("${post[0]} , ${post[1]}");
-    //     canvas.drawLine(
-    //         Offset(post[0] + 6 * factor, size.height - post[1] + factor), Offset(post[0] + 6 * factor, size.height - post[1] - postHeight), postPen);
-    //   }
-    // }
-    // // canvas.drawShadow(bottomCrotch, Colors.black45, 38.0, false);
-
-    // canvas.drawShadow(escalera, Colors.blueGrey, 10.0, false);
-
-    // Bottom Crotch Post
-
-    // if (lowerFlatPost.isNotEmpty) {
-    //   List<String> alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
-    //   Map postDistance = {};
-
-    //   // var reversedBF = lowerFlatPost.reversed;
-
-    //   for (var i = lowerFlatPost.length; i > 0; i--) {
-    //     {
-    //       postDistance.addEntries({alphabet[i - 1]: lowerFlatPost[i - 1] * factor}.entries);
-    //     }
-    //   }
-    // }
-
-    //   // if (data['numberOfPostBC'] == '1') {
-    //   //   double A = double.parse(data['A']) * factor;
-    //   //   postDistance.addEntries({"A": A}.entries);
-    //   // } else if (data['numberOfPostBC'] == '2') {
-    //   //   double A = double.parse(data['A']) * factor;
-    //   //   double B = double.parse(data['B']) * factor;
-    //   //   postDistance.addEntries({"B": B}.entries);
-    //   //   postDistance.addEntries({"A": A}.entries);
-    //   // } else if (data['numberOfPostBC'] == '3') {
-    //   //   double A = double.parse(data['A']) * factor;
-    //   //   double B = double.parse(data['B']) * factor;
-    //   //   double C = double.parse(data['C']) * factor;
-    //   //   postDistance.addEntries({"C": C}.entries);
-    //   //   postDistance.addEntries({"B": B}.entries);
-    //   //   postDistance.addEntries({"A": A}.entries);
-    //   // }
-
-    //   // First post
-    //   canvas.drawLine(Offset(firstEscalonX - factor, size.height - postHeight), Offset(firstEscalonX - factor, tubePlateY), postPen);
-    //   addTubePlate(firstEscalonX - factor);
-
-    //   postDistance.forEach((key, value) {
-    //     addPost(key, value);
-    //   });
-
-    //   // rail A to C
-    //   canvas.drawLine(Offset(px, size.height - postHeight), Offset(firstEscalonX - factor, size.height - postHeight), postPen);
-    // }
   }
 
   void dimensionLabel(
@@ -689,26 +626,23 @@ class _Dibujo extends CustomPainter {
       required Offset offset,
       double fontSise = 15.0,
       Color color = Colors.red,
-      int angle = 0,
+      double angle = 0,
+      double bevel = 7.3125,
+      required double dx,
+      required double dy,
       required Paint pen}) {
-    Path nnPath = Path();
-    nnPath.moveTo(0, 0);
-    nnPath.lineTo(0, 100);
-    nnPath.lineTo(100, 100);
-    nnPath.lineTo(100, 0);
-    nnPath.close();
-
-    canvas.drawPath(nnPath, pen);
     canvas.save();
+    canvas.translate(dx, dy + 7.5);
 
-    // rotate the canvas
+    angle = atan(bevel / 12);
 
-    final radians = angle * 3.14 / 180;
+    canvas.rotate(-angle);
 
-    canvas.rotate(radians);
-
-    final textStyle = TextStyle(color: Colors.black, fontSize: 30);
-    final textSpan = TextSpan(text: value, style: textStyle);
+    TextStyle textStyle = TextStyle(color: Colors.red[400], fontSize: 15, backgroundColor: Colors.white);
+    TextSpan textSpan = TextSpan(
+      text: " $value -",
+      style: textStyle,
+    );
 
     TextPainter(text: textSpan, textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: size.width)
@@ -729,6 +663,5 @@ class _Dibujo extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
-    //throw UnimplementedError();
   }
 }

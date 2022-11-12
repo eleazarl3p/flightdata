@@ -311,7 +311,7 @@ class _RampPostTableState extends State<RampPostTable> {
     List<String> minAlphabet = List.generate(26, (index) => String.fromCharCode(index + 65));
     //curFocus = userInputsProvider.textFormFields['currentFocus'];
 
-    itemList.sort(((a, b) => a.step.compareTo(b.step)));
+    //itemList.sort(((a, b) => a.step.compareTo(b.step)));
 
     //         widgt,
     //         showEditIcon: cellEdition,
@@ -478,9 +478,9 @@ class _RampPostTableState extends State<RampPostTable> {
                               }),
                               onTap: () => itemList[index].stepController.selection =
                                   TextSelection(baseOffset: 0, extentOffset: itemList[index].stepController.value.text.length),
-                              onEditingComplete: () {
-                                stepValidator(userInputsProvider);
-                              },
+                              // onEditingComplete: () {
+                              //   stepValidator(userInputsProvider);
+                              // },
                             ),
                             onFocusChange: (value) {
                               if (!value) {
@@ -664,7 +664,7 @@ class RampPost {
   // }
 }
 
-class Utils {
-  static List<T> modelBuilder<M, T>(List<M> models, T Function(int index, M model) builder) =>
-      models.asMap().map<int, T>((index, model) => MapEntry(index, builder(index, model))).values.toList();
-}
+// class Utils {
+//   static List<T> modelBuilder<M, T>(List<M> models, T Function(int index, M model) builder) =>
+//       models.asMap().map<int, T>((index, model) => MapEntry(index, builder(index, model))).values.toList();
+// }

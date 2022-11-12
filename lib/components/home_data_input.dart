@@ -542,7 +542,8 @@ class _HomeDataInputState extends State<HomeDataInput> {
 
               // Lower Flat Post Add Button
               Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 32),
+                //decoration: BoxDecoration(color: Colors.red),
+                //margin: const EdgeInsets.only(left: 20.0, right: 32),
                 child: SizedBox(
                     width: containerWidth,
                     child: Column(
@@ -613,7 +614,7 @@ class _HomeDataInputState extends State<HomeDataInput> {
 
               // Ramp Post Add button
               Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 32),
+                //margin: const EdgeInsets.only(left: 20.0, right: 32),
                 child: SizedBox(
                     width: containerWidth,
                     child: Column(
@@ -641,7 +642,7 @@ class _HomeDataInputState extends State<HomeDataInput> {
                                       onPressed: _enableBtn //userInputsProvider.textFormFields['active']
                                           ? () {
                                               RampPost rPost = RampPost(nosingDistance: 0.0, step: 0, balusterDistance: 6.0, embeddedType: 'none');
-                                              rPost.balusterController.text = '0.0';
+                                              rPost.balusterController.text = '5.5';
                                               rPost.noseController.text = '0.0';
                                               rPost.stepController.text = '0';
 
@@ -685,7 +686,7 @@ class _HomeDataInputState extends State<HomeDataInput> {
 
               // Upper Flat Post Add Button
               Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 32),
+                //margin: const EdgeInsets.only(left: 20.0, right: 32),
                 child: SizedBox(
                     width: containerWidth,
                     child: Column(
@@ -771,6 +772,8 @@ class _HomeDataInputState extends State<HomeDataInput> {
                         if (_formKkey.currentState!.validate()) {
                           Map flight = Map.from(userInputsProvider.textFormFields);
                           myFlights.addFlight(widget.flightNumber, flight);
+                          // UserInput flight = userInputsProvider.textFormFields;
+                          // myFlights.addFlight(widget.flightNumber, flight);
                           Navigator.pop(context);
                         }
                       },

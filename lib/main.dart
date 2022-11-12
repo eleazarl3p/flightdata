@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/providers/AllFlight.dart';
 import 'package:flutter_application_1/screens/escalera.dart';
@@ -6,7 +8,17 @@ import 'package:flutter_application_1/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/providers/rampa_provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyAuNmucTGZyxT3WZ5kHXA4nZLe1RfWXGsw",
+          databaseURL: "https://flight-data-colector-default-rtdb.firebaseio.com",
+          projectId: "flight-data-colector",
+          storageBucket: "flight-data-colector.appspot.com",
+          messagingSenderId: "188566819091",
+          appId: "1:188566819091:web:da9de35ebf09dbafba4ae6",
+          measurementId: "G-RCLSN1Y9G0"));
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: ((context) => UserInput())), ChangeNotifierProvider(create: ((context) => AllFlight()))],
     child: MyApp(),
@@ -31,3 +43,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//FirebaseFirestore.instance.collection('fligtsdata').add({'riser': 635});
