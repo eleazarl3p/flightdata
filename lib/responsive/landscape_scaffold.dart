@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter_application_1/components/home_data_input.dart';
+import 'package:flutter_application_1/components/flight_data_input.dart';
 import 'package:flutter_application_1/components/stair_painter.dart';
 
 import '../constants.dart';
@@ -9,14 +9,14 @@ import '../constants.dart';
 // import "package:flutter_application_1/providers/rampa_provider.dart";
 
 class LandscapeScaffold extends StatelessWidget {
-  LandscapeScaffold({super.key, required this.flightNumber});
+  LandscapeScaffold({super.key, required this.flightName});
 
-  int flightNumber;
+  String flightName;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Flight $flightNumber")), backgroundColor: Colors.blueGrey.shade400), //appbar,
+      appBar: AppBar(title: Center(child: Text("Flight $flightName")), backgroundColor: Colors.blueGrey.shade400), //appbar,
       body: Row(children: [
         Expanded(
           //flex: 2,
@@ -27,8 +27,8 @@ class LandscapeScaffold extends StatelessWidget {
         ),
         SizedBox(
           width: 400.0,
-          child: HomeDataInput(
-            flightNumber: flightNumber,
+          child: FlighDataInput(
+            flightName: flightName,
           ),
         )
         //HomeDataInput()

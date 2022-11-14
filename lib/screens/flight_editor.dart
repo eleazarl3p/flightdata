@@ -5,24 +5,24 @@ import '../responsive/landscape_scaffold.dart';
 import '../responsive/portrait_scaffold.dart';
 import '../responsive/responsive_layout.dart';
 
-class Escalera extends StatefulWidget {
-  Escalera({super.key, required this.flightNumber});
+class FlightEditor extends StatefulWidget {
+  FlightEditor({super.key, required this.flightName});
 
-  int flightNumber;
+  String flightName;
   @override
-  State<Escalera> createState() => _EscaleraState();
+  State<FlightEditor> createState() => _FlightEditorState();
 }
 
-class _EscaleraState extends State<Escalera> {
+class _FlightEditorState extends State<FlightEditor> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: ResponsiveLayout(
             portraitScaffold: PortraitScaffold(
-              fligthNumber: widget.flightNumber,
+              flightName: widget.flightName,
             ),
             landscapeScaffold: LandscapeScaffold(
-              flightNumber: widget.flightNumber,
+              flightName: widget.flightName,
             )));
   }
 }

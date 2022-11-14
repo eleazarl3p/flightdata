@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/providers/AllFlight.dart';
-import 'package:flutter_application_1/screens/escalera.dart';
+import 'package:flutter_application_1/providers/Stair.dart';
 import 'package:flutter_application_1/screens/home.dart';
+import 'package:flutter_application_1/screens/flight_editor.dart';
+import 'package:flutter_application_1/screens/local_stairs.dart';
 
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/providers/rampa_provider.dart';
@@ -20,7 +21,7 @@ Future<void> main() async {
           appId: "1:188566819091:web:da9de35ebf09dbafba4ae6",
           measurementId: "G-RCLSN1Y9G0"));
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: ((context) => UserInput())), ChangeNotifierProvider(create: ((context) => AllFlight()))],
+    providers: [ChangeNotifierProvider(create: ((context) => UserInput())), ChangeNotifierProvider(create: ((context) => Stair()))],
     child: MyApp(),
   ));
 }
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.blueGrey,
           )),
-      home: const Home(),
+      home: Home(),
     );
   }
 }

@@ -6,24 +6,25 @@ import 'package:provider/provider.dart';
 import 'package:flutter_application_1/providers/rampa_provider.dart';
 
 // import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:flutter_application_1/model/Post.dart';
+import 'package:flutter_application_1/widget//Post.dart';
 
-import '../providers/AllFlight.dart';
+import '../providers/Stair.dart';
+import '../widget/Rampost.dart';
 
-class HomeDataInput extends StatefulWidget {
-  HomeDataInput({Key? key, required this.flightNumber}) : super(key: key);
+class FlighDataInput extends StatefulWidget {
+  FlighDataInput({Key? key, required this.flightName}) : super(key: key);
 
-  int flightNumber;
+  String flightName;
   bool load = true;
 
   @override
-  State<HomeDataInput> createState() =>
+  State<FlighDataInput> createState() =>
       // ignore: no_logic_in_create_state
-      _HomeDataInputState();
+      _FlighDataInputState();
 }
 
-class _HomeDataInputState extends State<HomeDataInput> {
-  _HomeDataInputState();
+class _FlighDataInputState extends State<FlighDataInput> {
+  _FlighDataInputState();
 
   late TextEditingController riserController = TextEditingController();
   late TextEditingController bevelController = TextEditingController();
@@ -154,28 +155,10 @@ class _HomeDataInputState extends State<HomeDataInput> {
     final userInputsProvider = context.read<UserInput>();
     late Map lastInputsVal = userInputsProvider.textFormFields;
 
-    final myFlights = context.read<AllFlight>();
+    final myFlights = context.read<Stair>();
     //List myStairs = AllStairs().myStairs;
     if (widget.load) {
-      //   widget.template.forEach((key, val) {
-      //     lastInputsVal.update(key, (value) => val);
-      //   });
-      //   _lowerFlatPost = lastInputsVal['lowerFlatPost'];
-      //   _rampPost = lastInputsVal['rampPost'];
-      //   _upperFlatPost = lastInputsVal['upperFlatPost'];
 
-      //   _hasTopCrotch = lastInputsVal['topCrotch'];
-      //   _hasBottomCrotch = lastInputsVal['bottomCrotch'];
-      //   _hasBottomCrotchPost = lastInputsVal['hasBottomCrotchPost'];
-
-      //   riserController.text = lastInputsVal['riser']; //userInputs['riser'];
-      //   bevelController.text = lastInputsVal['bevel'];
-
-      //   stairsCountController.text = lastInputsVal['stairsCount'];
-
-      //   topCrotchLengthController.text = lastInputsVal['topCrotchLength'];
-      //   bottomCrotchLengthController.text = lastInputsVal['bottomCrotchLength'];
-      //   widget.load = false;
 
       riserController.text = lastInputsVal['riser']; //userInputs['riser'];
       bevelController.text = lastInputsVal['bevel'];
@@ -771,7 +754,7 @@ class _HomeDataInputState extends State<HomeDataInput> {
                       onPressed: () {
                         if (_formKkey.currentState!.validate()) {
                           Map flight = Map.from(userInputsProvider.textFormFields);
-                          myFlights.addFlight(widget.flightNumber, flight);
+                          myFlights.addFlight(widget.flightName, flight);
                           // UserInput flight = userInputsProvider.textFormFields;
                           // myFlights.addFlight(widget.flightNumber, flight);
                           Navigator.pop(context);

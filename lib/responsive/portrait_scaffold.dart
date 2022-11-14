@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/stair_painter.dart';
 
 import 'package:flutter_application_1/constants.dart';
-import 'package:flutter_application_1/components/home_data_input.dart';
+import 'package:flutter_application_1/components/flight_data_input.dart';
 
-import '../model/Post.dart';
+import '../widget//Post.dart';
 
 class PortraitScaffold extends StatelessWidget {
   //late Map userInputs = ;
-  PortraitScaffold({Key? key, required this.fligthNumber}) : super(key: key);
+  PortraitScaffold({Key? key, required this.flightName}) : super(key: key);
 
-  int fligthNumber;
+  String flightName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +26,8 @@ class PortraitScaffold extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: HomeDataInput(
-            flightNumber: fligthNumber,
+          child: FlighDataInput(
+            flightName: flightName,
           ),
         )
       ]),

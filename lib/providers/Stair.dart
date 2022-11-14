@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/Post.dart';
-import 'package:flutter_application_1/providers/rampa_provider.dart';
 
-class AllFlight extends ChangeNotifier {
+class Stair extends ChangeNotifier {
   // late String _inputOne = "";
   // late final String _inputTwo = '';
 
-  late final Map<int, Map> _MyFlights = {};
+  late final Map<String, Map> _MyFlights = {};
 
   // get inputOne => _inputOne;
   // get inputTwo => _inputTwo;
@@ -21,8 +16,8 @@ class AllFlight extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addFlight(int flightNumber, Map stairInfo) {
-    _MyFlights.addEntries({flightNumber: stairInfo}.entries);
+  void addFlight(String flightName, Map stairInfo) {
+    _MyFlights.addEntries({flightName: stairInfo}.entries);
 
     notifyListeners();
   }

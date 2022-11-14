@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/Post.dart';
+import '../widget//Post.dart';
+import '../widget/Rampost.dart';
 
 class UserInput extends ChangeNotifier {
   // late String _inputOne = "";
