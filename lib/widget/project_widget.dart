@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/escalera.dart';
+
+import '../models/tramo.dart';
 
 
 
 
-class Project extends StatelessWidget {
-  List projects ;
-  Project({Key? key, required this.projects}) : super(key: key);
+class ProjectWidget extends StatelessWidget {
+  List<Escalera> stairs;
+  ProjectWidget({Key? key, required this.stairs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +28,20 @@ class Project extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Container(
-                        margin: EdgeInsets.all(15),
+                        margin: const EdgeInsets.all(15),
                         decoration: BoxDecoration(border: Border.all(width: 2.0, color: Colors.black), borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
                             Expanded(
                               child: ListView.builder(
                                 padding: const EdgeInsets.all(10.0),
-                                itemCount: projects.length,
+                                itemCount: stairs.length,
                                 itemBuilder: ((context, index) {
 
                                   return Card(
                                     color: Colors.brown.shade100,
                                     child: ListTile(
-                                      leading: Text('Stair :  '),
+                                      leading: Text(stairs[index].identifier),
                                       trailing: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -70,19 +73,19 @@ class Project extends StatelessWidget {
                                 }),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            ElevatedButton(
-                              child: const Text(' Submit '),
-                              onPressed: () {
-                                //FirebaseFirestore.instance.collection('fligtsdata').add({'riser': 88935});
-
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
+                            // const SizedBox(
+                            //   height: 20.0,
+                            // ),
+                            // ElevatedButton(
+                            //   child: const Text(' Submit '),
+                            //   onPressed: () {
+                            //     //FirebaseFirestore.instance.collection('fligtsdata').add({'riser': 88935});
+                            //
+                            //   },
+                            // ),
+                            // const SizedBox(
+                            //   height: 20.0,
+                            // ),
                           ],
                         ),
                       )),

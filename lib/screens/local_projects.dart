@@ -7,16 +7,10 @@ class LocalProjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        margin: EdgeInsets.all(20.0),
-        padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 2.0
-          )
-        ),
+      appBar: AppBar(
+        title: Text("Local Projects"),
       ),
+      body: Center(child: Text("Aqui va local Projects")),
     );
   }
 }

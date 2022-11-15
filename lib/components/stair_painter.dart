@@ -9,7 +9,7 @@ import '../widget//Post.dart';
 import '../widget/Rampost.dart';
 
 class StairPainter extends StatelessWidget {
-  StairPainter({super.key});
+  const StairPainter({super.key});
 
   @override
   Widget build(BuildContext context) {
